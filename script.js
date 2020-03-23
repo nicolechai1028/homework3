@@ -13,6 +13,23 @@ var randomFunc = {
   symbol: getRandomSymbol,
 }
 
+function getRandomLower(){
+  return String.fromCharCode(Math.floor(Math.random() * 26) + 97);
+}
+
+function getRandomUpper(){
+  return String.fromCharCode(Math.floor(Math.random() * 26) + 65);
+}
+
+function getRandomNumber(){
+  return String.fromCharCode(Math.floor(Math.random() * 10) + 48);
+}
+
+function getRandomSymbol(){
+  var symbols = '!@#$%^&*()-+{}[]=<>/,.'
+  return symbols[Math.floor(Math.random() * symbols.length)];
+}
+
 // Generate Event Listener
 generate.addEventListener('click',()=>{
   var length = +lengthEl.value;
@@ -21,17 +38,12 @@ generate.addEventListener('click',()=>{
   var hasNumber = numbersEl.checked;
   var hasSymbol = symbolsEl.checked;
 
-  passwordEl.innerText = generatePassword(
-    hasLower, 
-    hasUpper, 
-    hasNumber, 
-    hasSymbol, 
-    length)
+  passwordEl.innerText = generatePassword(length, hasLower, hasUpper, hasNumber, hasSymbol,);
 });
 
 //Generate password function
-function generatePassword(lower, upper, number, symbol, length){
-  let generatedPassword ='';
+function generatePassword(length, lower, upper, number, symbol){
+  let generatedPassword = '';
   var typesCount = lower + upper + number + symbol;
   var typesArr = [{lower},{upper},{number},{symbol}].filter(item => Object.values(item) [0]);
 
@@ -49,21 +61,3 @@ function generatePassword(lower, upper, number, symbol, length){
 }
 
 var finalPassword = generatedPassword.slice(0, lenght);
-
-
-function getRandomLower(){
-  return String.fromCharCode(Math.floor(Math.random() * 26) + 97);
-}
-
-function getRandomUpper(){
-  return String.fromCharCode(Math.floor(Math.random() * 26) + 65);
-}
-
-function getRandomNumber(){
-  return String.fromCharCode(Math.floor(Math.random() * 10) + 48);
-}
-
-function getRandomSymbol(){
-  var symbols = '!@#$%^&*()-+{}[]=<>/,.'
-  return symbols[Math.floor(Math.random() * symbols.length)];
-}
