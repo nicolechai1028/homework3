@@ -13,6 +13,7 @@ var randmFunc = {
   symbol: getRandomSymbol,
 }
 
+// Generate Event Listener
 generateBtn.addEventListener('click',()=>{
   var length = +lengthEl.value;
   var hasLower = lowercaseEl.checked;
@@ -20,8 +21,40 @@ generateBtn.addEventListener('click',()=>{
   var hasNumber = numbersEl.checked;
   var hasSymbols = symbolsEl.checked;
 
-  console.log(length);
+  generatePassword(
+    hasLower, 
+    hasUpper, 
+    hasNumber, 
+    hasSymbols, 
+    length)
 })
+
+//Generate password function
+function generatePassword(lower, upper, number, symbol, length){
+  let generatedPassword ='';
+
+  var typesCount = lower + upper + number + symbol;
+
+  console.log('typeCount:', typesCount);
+
+  var typesArr = [{lower},{upper},{number},{symbol}].filter(item => Object.values(item) [0]
+  );
+
+  console.log('typesArr:', typesArr);
+
+  if(typesCount === 0) {
+    return '';
+  }
+
+  for(let i = 0; i <length; i =+ typesCount) {
+    typesArr.forEach(type => {
+      var funcName =Object.keys (type) [0];
+      console.log('funcName:', funcName);
+
+      generatedPassword += randomFunc[funcName]();
+    });
+  }
+}
 
 function getRandomLower(){
   return String.fromCharCode(Math.floor(Math.random() * 26) + 97);

@@ -54,6 +54,10 @@ header {
   min-height: 100px;
 }
 
+.criteria {
+  margin: 10px;
+}
+
 .card-footer {
   text-align: center;
 }
