@@ -6,29 +6,29 @@ var lowercaseEl = document.getElementById('lowercase');
 var numbersEl = document.getElementById('numbers'); 
 var symbolsEl = document.getElementById('symbols'); 
 
-var randomFunc = {
-  lower: getRandomLower,
-  upper: getRandomUpper,
-  number: getRandomNumber,
-  symbol: getRandomSymbol,
-}
+// var randomFunc = {
+//   lower: getRandomLower,
+//   upper: getRandomUpper,
+//   number: getRandomNumber,
+//   symbol: getRandomSymbol,
+// }
 
-function getRandomLower(){
-  return String.fromCharCode(Math.floor(Math.random() * 26) + 97);
-}
+// function getRandomLower(){
+//   return String.fromCharCode(Math.floor(Math.random() * 26) + 97);
+// }
 
-function getRandomUpper(){
-  return String.fromCharCode(Math.floor(Math.random() * 26) + 65);
-}
+// function getRandomUpper(){
+//   return String.fromCharCode(Math.floor(Math.random() * 26) + 65);
+// }
 
-function getRandomNumber(){
-  return String.fromCharCode(Math.floor(Math.random() * 10) + 48);
-}
+// function getRandomNumber(){
+//   return String.fromCharCode(Math.floor(Math.random() * 10) + 48);
+// }
 
-function getRandomSymbol(){
-  var symbols = '!@#$%^&*()-+{}[]=<>/,.'
-  return symbols[Math.floor(Math.random() * symbols.length)];
-}
+// function getRandomSymbol(){
+//   var symbols = '!@#$%^&*()-+{}[]=<>/,.'
+//   return symbols[Math.floor(Math.random() * symbols.length)];
+// }
 
 // Generate Event Listener
 generate.addEventListener('click',()=>{
@@ -37,27 +37,42 @@ generate.addEventListener('click',()=>{
   var hasUpper = uppercaseEl.checked;
   var hasNumber = numbersEl.checked;
   var hasSymbol = symbolsEl.checked;
-
-  passwordEl.innerText = generatePassword(length, hasLower, hasUpper, hasNumber, hasSymbol,);
+  // var length = prompt('please enter desired password length');
+  // console.log('yay im in console!')
+  // var hasLower = confirm('include lowercase letters?');
+  // var hasUpper = confirm('include uppercase letters?');
+  // var hasSymbol = confirm('include symbol?');
+  // var hasNumber = confirm('include numbers?');
+  var upper = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  var lower = upper.toLowerCase();
+  var number = '1234567890';
+  var special = `!@#$%^&*()_+-={}[]:'";<>?/.,`;
+  var collection = ''
+  if(hasLower){
+    collection += lower;
+  }
+  if(hasUpper){
+    collection += upper;
+  }
+  if(hasNumber){
+    collection += number;
+  }
+  if(hasSymbol){
+    collection += special;
+  }
+  
+  passwordEl.innerText = generatePassword(length, collection);
 });
 
 //Generate password function
-function generatePassword(length, lower, upper, number, symbol){
+function generatePassword(length, string){
   let generatedPassword = '';
-  var typesCount = lower + upper + number + symbol;
-  var typesArr = [{lower},{upper},{number},{symbol}].filter(item => Object.values(item) [0]);
-
-  if(typesCount === 0) {
-    return '';
+  for(let i = 0; i <length; i++) {
+    var rand = Math.floor(Math.random()*string.length);
+    generatedPassword += string.charAt(rand);
   }
-
-  for(let i = 0; i <length; i += typesCount) {
-    typesArr.forEach(type => {
-      var funcName =Object.keys (type) [0];
-      generatedPassword += randomFunc[funcName]();
-    });
-  }
-
+return generatedPassword
 }
 
-var finalPassword = generatedPassword.slice(0, lenght);
+
+
